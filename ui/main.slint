@@ -1,0 +1,77 @@
+
+component WeatherComponent {
+    in property <image> weather_image;
+    in property <string> temp_text;
+    in property <string> feels_like_text;
+
+    Rectangle {
+        VerticalLayout {
+            Image {
+                source: weather_image;
+            }
+
+            Text {
+                text: "Temp: " + temp_text + "°F\nFeels like: " + feels_like_text + "°F";
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+component TimeComponent {
+    in property <string> curr_time;
+    Rectangle {
+        Text {
+            text: curr_time;
+            font-size: 42px;
+            horizontal-alignment: center;
+        }
+    }
+}
+
+component QuoteComponent {
+    in property <string> quote_text;
+    Rectangle {
+        Text {
+            text: quote_text;
+            font-size: 24px;
+            horizontal-alignment: center;
+        }
+    }
+}
+
+export component MainWindow inherits Window {
+    width: 600px;
+    height: 800px;
+
+    in property <string> time_text: "18:32";
+    in property <image> weather_image;
+    in property <string> temp_text: "80";
+    in property <string> feels_like_text: "73";
+
+    in property <string> quote_text: "Default quote text";
+
+    GridLayout {
+        Row {
+            TimeComponent {
+                col: 0;
+                width: 250px;
+                curr_time: time_text;
+            }
+
+            WeatherComponent {
+                col: 2;
+                weather_image: weather_image;
+                temp_text: temp_text;
+                feels_like_text: feels_like_text;
+            }
+        }
+
+        Row {
+            QuoteComponent {
+                colspan: 3;
+                quote_text: quote_text;
+            }
+        }
+    }
+}
